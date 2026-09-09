@@ -9,6 +9,7 @@
   <a href="#cost-savings"><img src="https://img.shields.io/badge/Cost_Reduction-Up_to_90%25-emerald.svg" alt="Cost Reduction"></a>
   <a href="#3-golden-rules"><img src="https://img.shields.io/badge/Architecture-3_Golden_Rules-orange.svg" alt="3 Golden Rules"></a>
   <a href="#typescript"><img src="https://img.shields.io/badge/TypeScript-Ready-3178C6.svg?logo=typescript&logoColor=white" alt="TypeScript"></a>
+  <a href="SPECIFICATION.md"><img src="https://img.shields.io/badge/PRD_Spec-Complete_v0.1-purple.svg" alt="PRD Spec"></a>
 </p>
 
 ---
