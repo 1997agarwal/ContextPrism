@@ -7,7 +7,7 @@ import { Zap, Github, Layers, Database, Cpu, Sparkles, ShieldCheck } from 'lucid
 
 export const App: React.FC = () => {
   // Tabs for the 3 Golden Rules
-  const [activeTab, setActiveTab] = useState<'compressor' | 'router' | 'cache'>('compressor');
+  const [activeTab, setActiveTab] = useState<'router' | 'cache' | 'compressor'>('router');
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col antialiased">
@@ -85,18 +85,6 @@ export const App: React.FC = () => {
           <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-200">
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setActiveTab('compressor')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
-                  activeTab === 'compressor'
-                    ? 'bg-sky-600 text-white shadow-sm'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                <Cpu className="w-4 h-4" />
-                <span>Rule 3: AST Context Compressor</span>
-              </button>
-
-              <button
                 onClick={() => setActiveTab('router')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
                   activeTab === 'router'
@@ -119,6 +107,18 @@ export const App: React.FC = () => {
                 <Database className="w-4 h-4" />
                 <span>Rule 2: Zero-Cost Semantic Cache</span>
               </button>
+
+              <button
+                onClick={() => setActiveTab('compressor')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  activeTab === 'compressor'
+                    ? 'bg-sky-600 text-white shadow-sm'
+                    : 'text-slate-600 hover:bg-slate-100'
+                }`}
+              >
+                <Cpu className="w-4 h-4" />
+                <span>Rule 3: AST Context Compressor</span>
+              </button>
             </div>
 
             <span className="text-xs text-slate-400 font-medium hidden md:inline">
@@ -128,9 +128,9 @@ export const App: React.FC = () => {
 
           {/* Active Tab Content */}
           <div>
-            {activeTab === 'compressor' && <CompressorStudio />}
             {activeTab === 'router' && <RouterPlayground />}
             {activeTab === 'cache' && <CacheInspector />}
+            {activeTab === 'compressor' && <CompressorStudio />}
           </div>
         </div>
       </main>
