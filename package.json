@@ -1,0 +1,50 @@
+{
+  "name": "contextprism",
+  "version": "0.1.0",
+  "description": "Cut enterprise AI bills by 80% with intelligent context compression and token FinOps.",
+  "type": "module",
+  "bin": {
+    "contextprism": "./bin/cli.mjs",
+    "prism": "./bin/cli.mjs"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "node --experimental-strip-types server/index.ts",
+    "dev:client": "vite --port 5174",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "lucide-react": "^0.475.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.4",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  },
+  "keywords": [
+    "ai",
+    "tokens",
+    "finops",
+    "ast",
+    "context-window",
+    "cache",
+    "cost-reduction",
+    "claude-code",
+    "cursor"
+  ],
+  "author": "Harshit Agarwal",
+  "license": "MIT"
+}
