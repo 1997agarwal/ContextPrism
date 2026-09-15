@@ -23,7 +23,10 @@ In practice, organizations encountered **runaway token consumption**:
 3. **C-Suite Crisis & AI Lockout:** Annual enterprise AI budgets (e.g. \$100k-\$500k) are exhausted in 2 to 3 months. CFOs and VPs of Engineering are reacting by revoking API keys, slashing seats, and imposing harsh daily caps that block builders mid-task.
 
 ### 1.2 The Solution
-**ContextPrism** is an open-source Token FinOps gateway and AST-aware context compiler that intercepts prompts and repositories before expensive API calls are executed. It enforces the **3 Golden Rules of AI Cost Optimization** to slash bills by **70% to 90%** with zero loss in AI reasoning quality.
+**ContextPrism** is an open-source Token FinOps gateway and multi-language AST context compiler that intercepts prompts and repositories before expensive API calls are executed. It enforces the **3 Golden Rules of AI Cost Optimization** to slash bills by **70% to 90%** with zero loss in AI reasoning quality:
+1. **Multi-Language AST Context Compression (TypeScript & Python):** Intelligently prunes internal function and method bodies across TypeScript and Python (`.py`) codebases while strictly preserving module/function docstrings, parameter signatures, return types, dataclasses, and Pydantic schemas (-80% token reduction).
+2. **Interactive Token FinOps ROI Calculator:** Equips Engineering Managers, Directors, and CFOs with real-time financial modeling across team sizes, daily prompt volumes, and the 3 Golden Rules, complete with one-click executive briefing exports for leadership budget reviews.
+3. **Task-Aware Model Routing & Zero-Cost Caching:** Eliminates frontier model waste on routine tasks and serves duplicate team queries in sub-5ms at \$0.00.
 
 ---
 
@@ -83,18 +86,41 @@ In practice, organizations encountered **runaway token consumption**:
   - **Performance:** Sub-5ms in-memory retrieval with zero external network overhead ($0.00 cost).
 
 ### 3.3 Rule 3: AST Context Compressor (`server/core/astCompressor.ts`)
-- **Objective:** Give AI coding agents maximum intelligence with 80% fewer wasted tokens.
-- **Grammar & Pruning Algorithm:**
-  1. Detects and preserves all `export interface`, `interface`, and `export type` declarations.
-  2. Preserves exported function and class method signatures (name, parameters, return types).
-  3. Tracks brace depth `{ ... }` and strips internal implementation bodies, replacing them with a compact marker:
-     ```typescript
-     /* ... [AST Collapsed: 45 lines of internal logic] ... */
-     ```
-  4. Keeps top-level imports and external contracts so downstream LLMs understand module boundaries.
+- **Objective:** Give AI coding agents maximum intelligence with 80% fewer wasted tokens across both TypeScript and Python repos.
+- **Multi-Language Grammar & Pruning Algorithm:**
+  - **TypeScript / JavaScript:**
+    1. Detects and preserves all `export interface`, `interface`, and `export type` declarations.
+    2. Preserves exported function, class method, and constructor signatures (name, parameters, return types).
+    3. Tracks brace depth `{ ... }` and strips internal implementation bodies, replacing them with a compact marker:
+       ```typescript
+       /* ... [AST Collapsed: 45 lines of internal logic] ... */
+       ```
+  - **Python (`.py`):**
+    1. Detects Python functions (`def`, `async def`), classes, and decorators (`@property`, `@dataclass`, etc.).
+    2. **Docstring Preservation:** Preserves all module docstrings, class docstrings, and function/method docstrings (both single-line and multi-line `"""..."""` and `'''...'''`) verbatim.
+    3. **Signature & Contract Preservation:** Preserves complete parameter lists, default arguments, and return type annotations (`-> ReturnType:`), including multi-line parameter headers.
+    4. **Indentation-Aware Pruning:** Tracks indentation level ($I$). Preserves signature + docstrings, collapses all internal executable statements at indentation $> I$, replacing them with:
+       ```python
+       ...  # [AST Collapsed: 42 lines of internal logic]
+       ```
+    5. **Data Schemas & Fields:** Preserves dataclass attributes, Pydantic `BaseModel` fields, and typed class contracts intact.
 - **Benchmark Results:** Drops token weight from ~150,000 tokens to ~22,000 tokens (**83% to 85% reduction**) without any degradation in reasoning quality.
 
-### 3.4 Enterprise Budget Circuit Breaker (`server/core/budgetGuard.ts`)
+### 3.4 Interactive Token FinOps ROI Calculator (`src/components/FinOpsCalculator.tsx`)
+- **Objective:** Enable Engineering Managers, Directors, and CFOs to model exact team savings under the 3 Golden Rules with real-time reactive sliders and one-click executive summaries.
+- **Mathematical Modeling Engine:**
+  - **Unoptimized Baseline Spend:**
+    $$\text{Baseline Monthly Spend} = \left(\frac{\text{Seats} \times \text{Turns/Day} \times \text{Working Days} \times \text{Raw Context Tokens}}{1,000,000}\right) \times \text{Frontier Rate}$$
+  - **Rule 2 Savings (Semantic Cache):**
+    $$\text{Tokens Avoided} = \text{Total Prompts} \times \text{Cache Hit Rate} \times \text{Raw Context Tokens}$$
+  - **Rule 3 Savings (AST Pruning):**
+    $$\text{Pruned Tokens} = \text{Uncached Prompts} \times (\text{Raw Tokens} - \text{Compressed Tokens})$$
+  - **Rule 1 Savings (Task-Aware Router):**
+    $$\text{Router Savings} = \text{Uncached Prompts} \times \text{Tier 1 Split} \times \text{Compressed Tokens} \times (\text{Frontier Rate} - \text{Micro Rate})$$
+- **Presets Available:** Seed / Series A (8 seats), Growth Scaleup (35 seats), Enterprise Org (150 seats).
+- **Executive Deliverables:** Live ROI multiplier (e.g. 24.6x ROI), annual run-rate savings ($/year), and a copyable CFO briefing memo.
+
+### 3.5 Enterprise Budget Circuit Breaker (`server/core/budgetGuard.ts`)
 - **Objective:** Halt rogue multi-step agent loops before they drain departmental budgets.
 - **Hard Ceilings:**
   - `maxTokensPerQuery`: 32,000 tokens max.

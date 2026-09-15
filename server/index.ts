@@ -22,12 +22,12 @@ app.get('/api/health', (req: any, res: any) => {
 });
 
 app.post('/api/compress', (req: any, res: any) => {
-  const { source } = req.body;
+  const { source, language } = req.body;
   if (!source) {
     return res.status(400).json({ error: 'Source code content is required.' });
   }
 
-  const result = compressCode(source);
+  const result = compressCode(source, language);
   res.json(result);
 });
 

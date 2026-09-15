@@ -2,21 +2,27 @@ import React from 'react';
 import { DollarSign, Percent, Zap, Database, ShieldAlert } from 'lucide-react';
 import { initialSummary } from '../data/mockFinOps';
 
-export const FinOpsSummary: React.FC = () => {
+export const FinOpsSummary: React.FC<{ onOpenCalculator?: () => void }> = ({ onOpenCalculator }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {/* Metric 1: Dollars Saved */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+      <div
+        onClick={onOpenCalculator}
+        className={`bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between ${
+          onOpenCalculator ? 'cursor-pointer hover:border-emerald-300 hover:shadow-sm transition group' : ''
+        }`}
+      >
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Enterprise Dollars Saved</span>
-          <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+          <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 group-hover:scale-105 transition">
             <DollarSign className="w-4 h-4" />
           </div>
         </div>
         <div>
           <div className="text-2xl font-black text-slate-900">{initialSummary.totalDollarSavings}</div>
-          <p className="text-[11px] text-emerald-600 font-semibold mt-1">
-            +84.2% cost reduction vs uncompressed
+          <p className="text-[11px] text-emerald-600 font-semibold mt-1 flex items-center justify-between">
+            <span>+84.2% cost reduction</span>
+            {onOpenCalculator && <span className="text-[10px] text-sky-600 font-bold hover:underline">Calculate ROI →</span>}
           </p>
         </div>
       </div>

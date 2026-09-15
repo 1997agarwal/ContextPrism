@@ -3,11 +3,12 @@ import { FinOpsSummary } from './components/FinOpsSummary';
 import { CompressorStudio } from './components/CompressorStudio';
 import { RouterPlayground } from './components/RouterPlayground';
 import { CacheInspector } from './components/CacheInspector';
-import { Zap, Github, Layers, Database, Cpu, Sparkles, ShieldCheck } from 'lucide-react';
+import { FinOpsCalculator } from './components/FinOpsCalculator';
+import { Zap, Github, Layers, Database, Cpu, Sparkles, ShieldCheck, Calculator, ArrowRight } from 'lucide-react';
 
 export const App: React.FC = () => {
-  // Tabs for the 3 Golden Rules
-  const [activeTab, setActiveTab] = useState<'router' | 'cache' | 'compressor'>('router');
+  // Tabs for the 3 Golden Rules + Executive FinOps ROI Calculator
+  const [activeTab, setActiveTab] = useState<'router' | 'cache' | 'compressor' | 'calculator'>('router');
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col antialiased">
@@ -75,15 +76,26 @@ export const App: React.FC = () => {
               When employees dump repos into coding agents, context explodes into 1.5M tokens per query. ContextPrism acts as an intelligent FinOps buffer enforcing the 3 Golden Rules of cost optimization.
             </p>
           </div>
+
+          <div className="shrink-0 flex items-center">
+            <button
+              onClick={() => setActiveTab('calculator')}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm transition"
+            >
+              <Calculator className="w-4 h-4" />
+              <span>Calculate Team ROI</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
 
         {/* Live FinOps Telemetry Metrics */}
-        <FinOpsSummary />
+        <FinOpsSummary onOpenCalculator={() => setActiveTab('calculator')} />
 
-        {/* 3 Golden Rules Tab Switcher */}
+        {/* 3 Golden Rules & FinOps Tab Switcher */}
         <div>
-          <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-200">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-2 border-b border-slate-200">
+            <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setActiveTab('router')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
@@ -119,6 +131,18 @@ export const App: React.FC = () => {
                 <Cpu className="w-4 h-4" />
                 <span>Rule 3: AST Context Compressor</span>
               </button>
+
+              <button
+                onClick={() => setActiveTab('calculator')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  activeTab === 'calculator'
+                    ? 'bg-emerald-600 text-white shadow-sm'
+                    : 'text-emerald-700 bg-emerald-50/60 hover:bg-emerald-100 border border-emerald-200/60'
+                }`}
+              >
+                <Calculator className="w-4 h-4" />
+                <span>Token FinOps ROI Calculator</span>
+              </button>
             </div>
 
             <span className="text-xs text-slate-400 font-medium hidden md:inline">
@@ -131,6 +155,7 @@ export const App: React.FC = () => {
             {activeTab === 'router' && <RouterPlayground />}
             {activeTab === 'cache' && <CacheInspector />}
             {activeTab === 'compressor' && <CompressorStudio />}
+            {activeTab === 'calculator' && <FinOpsCalculator />}
           </div>
         </div>
       </main>
