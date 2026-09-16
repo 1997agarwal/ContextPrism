@@ -5,6 +5,7 @@
 </p>
 
 <p align="center">
+  <a href="https://1997agarwal.github.io/ContextPrism"><img src="https://img.shields.io/badge/Live_Demo-ContextPrism_Studio-0284c7.svg?logo=googlechrome&logoColor=white" alt="Live Demo"></a>
   <a href="#license"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License MIT"></a>
   <a href="#cost-savings"><img src="https://img.shields.io/badge/Cost_Reduction-Up_to_90%25-emerald.svg" alt="Cost Reduction"></a>
   <a href="#3-golden-rules"><img src="https://img.shields.io/badge/Architecture-3_Golden_Rules-orange.svg" alt="3 Golden Rules"></a>
