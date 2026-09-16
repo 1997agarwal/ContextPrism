@@ -152,7 +152,7 @@ npx contextprism route "classify customer feedback sentiment"
 
 ---
 
-## 📂 Repository Architecture
+## 📂 Repository Structure
 
 ```
 ContextPrism/
