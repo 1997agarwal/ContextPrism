@@ -229,3 +229,78 @@ export const finOpsPresets: FinOpsPreset[] = [
   }
 ];
 
+export const sampleLangChainFile = `
+import asyncio
+from typing import List, Dict, Any, Optional
+from pydantic import BaseModel, Field
+
+class AgentState(BaseModel):
+    messages: List[Dict[str, str]]
+    next_step: str = "retrieve_context"
+    memory_buffer: Dict[str, Any] = Field(default_factory=dict)
+
+class RetrievalAugmentedAgent:
+    """Multi-step reasoning agent with semantic tool-calling memory."""
+
+    def __init__(self, model_name: str = "gpt-4o", temperature: float = 0.2):
+        """Configure agent hyperparameters and vector index connection.
+        
+        Args:
+            model_name: Frontier LLM identifier.
+            temperature: Sampling temperature for structured reasoning.
+        """
+        self.model_name = model_name
+        self.temperature = temperature
+        self._history = []
+
+    async def execute_task(self, prompt: str, state: AgentState) -> Dict[str, Any]:
+        """Execute autonomous retrieval loop against knowledge base.
+        
+        Args:
+            prompt: User objective or prompt instructions.
+            state: Current session state with execution graph.
+        Returns:
+            JSON object with synthesized final response and citations.
+        """
+        # 60 lines of heavy retrieval, embeddings reranking, and vector lookup
+        chunks = []
+        for i in range(50):
+            chunks.append(f"document_chunk_{i}_embedding_vector")
+        
+        final_answer = f"Synthesized insight for: {prompt}"
+        return {"answer": final_answer, "confidence": 0.96, "iterations": len(chunks)}
+`.trim();
+
+export const sampleNextActionFile = `
+'use server';
+
+import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
+
+export interface ActionResult<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+}
+
+const CreateWorkspaceSchema = z.object({
+  name: z.string().min(3).max(50),
+  tier: z.enum(['starter', 'pro', 'enterprise']),
+  teamSize: z.number().int().positive()
+});
+
+export type CreateWorkspaceInput = z.infer<typeof CreateWorkspaceSchema>;
+
+export async function createWorkspaceAction(
+  input: CreateWorkspaceInput
+): Promise<ActionResult<{ id: string; slug: string }>> {
+  // 40 lines of authentication, database insertion, and stripe billing verification
+  const parsed = CreateWorkspaceSchema.parse(input);
+  const workspaceId = "ws_" + Math.random().toString(36).substring(7);
+  
+  // Heavy ORM transaction logic simulated here
+  const timestamp = Date.now();
+  revalidatePath('/dashboard');
+  return { success: true, data: { id: workspaceId, slug: parsed.name.toLowerCase() } };
+}
+`.trim();
