@@ -62,7 +62,7 @@ export async function getUser(id: string): Promise<UserPayload> {
     assert.equal(reduction, 82);
   });
 
-  await t.test('verifies semantic cache dollar savings calculation', () => {
+  await t.test('verifies exact-match cache dollar savings calculation', () => {
     const cachedCalls = 50000;
     const avgTokensPerCall = 4000;
     const costPerMillionTokens = 3.50; // $3.50 per 1M tokens
