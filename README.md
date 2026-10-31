@@ -1,7 +1,7 @@
 # ContextPrism 💎
 
 <p align="center">
-  <b>Cut Enterprise AI Bills by 80% with Intelligent Context Compression & Token FinOps.</b>
+  <b>Shrink AI context with AST compression, model routing and an exact-match cache. Measured: 35.3% fewer estimated tokens on the bundled samples.</b>
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://1997agarwal.github.io/ContextPrism"><img src="https://img.shields.io/badge/Live_Demo-Interactive_Studio-0284c7.svg?logo=googlechrome&logoColor=white" alt="Live Demo"></a>
   <a href="#license"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License MIT"></a>
-  <a href="#cost-savings"><img src="https://img.shields.io/badge/Cost_Reduction-Up_to_90%25-emerald.svg" alt="Cost Reduction"></a>
+  <a href="#benchmark-status"><img src="https://img.shields.io/badge/Measured-35.3%25_fewer_tokens_(samples)-emerald.svg" alt="Measured token reduction"></a>
   <a href="#3-golden-rules"><img src="https://img.shields.io/badge/Architecture-3_Golden_Rules-orange.svg" alt="3 Golden Rules"></a>
   <a href="#typescript"><img src="https://img.shields.io/badge/TypeScript-Ready-3178C6.svg?logo=typescript&logoColor=white" alt="TypeScript"></a>
   <a href="#python"><img src="https://img.shields.io/badge/Python-AST_Pruner-3776AB.svg?logo=python&logoColor=white" alt="Python AST"></a>
@@ -45,25 +45,25 @@ Enterprises gave coding agents (Claude Code, Cursor, AntiGravity, Copilot) to hu
     │  • Simple classify/format ──► Claude 3.5 Haiku / GPT-4o-mini│
     │  • Complex architecture   ──► Claude 3.5 Sonnet / GPT-4o    │
     ├─────────────────────────────────────────────────────────────┤
-    │  Rule 2: Zero-Cost Semantic Cache                           │
-    │  • Duplicate or similar query? ──► Return response ($0, 2ms)│
+    │  Rule 2: Zero-Cost Exact-Match Cache                        │
+    │  • Identical query (after normalization)? ──► Cached reply │
     ├─────────────────────────────────────────────────────────────┤
     │  Rule 3: AST Context Compression (TypeScript & Python)      │
     │  • Strips internal function bodies & dead dependencies      │
     │  • Preserves docstrings, parameter signatures & type hints  │
-    │  • Reduces 120,000 tokens ──► 18,000 tokens (-85%)         │
+    │  • Measured: 35.3% fewer estimated tokens on 4 samples     │
     ├─────────────────────────────────────────────────────────────┤
-    │  Budget Circuit Breaker                                     │
-    │  • Enforces per-task / per-user spend ceilings              │
+    │  Budget guard (advisory)                                    │
+    │  • Flags requests over the 32k-token ceiling; never blocks  │
     └─────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
-          [ Optimized Execution: Up to 90% Cost Reduction ]
+          [ Optimized Execution: cost depends on your model pricing ]
 ```
 
 1. **Match the Model to the Task (Rule 1):** Route simple classification and formatting to micro-models (\$0.25/M tokens). Reserve frontier models (\$3.00-\$15.00/M tokens) strictly for complex multi-step reasoning.
-2. **Cache Everything You Can (Rule 2):** If 100 developers or automated agents inspect the same codebase segment, call the API once. Return cached responses 99 more times for \$0.
-3. **AST Context Compression (Rule 3):** Parse source code using Abstract Syntax Trees across **TypeScript** and **Python (`.py`)**. Preserve exported interfaces, signatures, type hints, dataclasses, and full docstrings while stripping internal function and method bodies (-80% token reduction).
+2. **Cache Everything You Can (Rule 2):** If 100 developers or automated agents send the same prompt, call the API once and return the stored answer for \$0. The cache matches only identical prompts after lowercasing and punctuation removal. It is not semantic.
+3. **AST Context Compression (Rule 3):** Parse source code using Abstract Syntax Trees across **TypeScript** and **Python (`.py`)**. Preserve exported interfaces, signatures, type hints, dataclasses, and full docstrings while stripping internal function and method bodies (35.3% measured on the bundled samples; see [Benchmark status](#benchmark-status)).
 
 ---
 
@@ -72,7 +72,7 @@ Enterprises gave coding agents (Claude Code, Cursor, AntiGravity, Copilot) to hu
 ContextPrism's core pruner strips internal method bodies while strictly retaining architectural context for downstream LLMs:
 
 ```python
-# ContextPrism Packed Output (Feeds LLMs with 80% fewer tokens)
+# ContextPrism Packed Output (illustrative shape of the output)
 class EnterpriseStripeService:
     """Enterprise Stripe payment processor with audit trail & dispute mitigation."""
 
@@ -106,22 +106,20 @@ class EnterpriseStripeService:
 
 Built into the Web Studio for Engineering Managers, Directors, and CFOs to model exact team savings:
 - **Interactive Levers**: Team size (1-250 engineers), daily turns/day, context window size, Frontier vs Micro rates, and efficiency percentages.
-- **Scale Presets**: Instant modeling for **Seed / Series A** (8 seats), **Growth Scaleup** (35 seats), and **Enterprise Fleet** (150 seats).
-- **Rule-by-Rule Breakdown**: Telemetry showing exact dollar contributions from Rule 1 (Router), Rule 2 (Cache), and Rule 3 (AST Pruner).
+- **Scale Presets**: Instant modeling for **Seed / Series A** (8 seats), **Growth Scaleup** (35 seats), and **Enterprise Fleet** (150 seats). Presets and rates are illustrative assumptions, not measurements.
+- **Rule-by-Rule Breakdown**: Dollar contributions from Rule 1 (Router), Rule 2 (Exact-Match Cache), and Rule 3 (AST Pruner), computed from the inputs you enter.
 - **Executive Briefing Export**: One-click formatted report ready to paste into Slack, Notion, or CFO budget memos.
 
 ---
 
-## 📊 Token & Cost Impact Benchmark
+## 📊 Benchmark status
 
-| Workflow | Raw LLM Tokens | ContextPrism Packed | Token Savings | Cost per 1,000 Queries |
-|---|---|---|---|---|
-| **Python FastAPI Backend** | 125,000 tokens | 22,100 tokens | **-82.3%** | \$1,875 $\to$ **\$331.50** |
-| **Full TS Repo Feature Planning** | 148,000 tokens | 21,500 tokens | **-85.4%** | \$2,220 $\to$ **\$322.50** |
-| **Bug Investigation / Tracing** | 82,000 tokens | 14,800 tokens | **-81.9%** | \$1,230 $\to$ **\$222.00** |
-| **Repeated CI/CD Prompt Runs** | 45,000 tokens | 0 tokens (Cache Hit) | **-100%** | \$675 $\to$ **\$0.00** |
+<a id="benchmark-status"></a>
 
----
+- **Reproducible:** `npm run bench` runs the real AST compressor on the four sample files in `src/data/mockFinOps.ts` and prints estimated tokens (characters / 3.8). Result: 2,276 to 1,472 estimated tokens, **35.3% reduction**. Per-file results range from 0% to 44.7%.
+- **Not reproducible yet:** the earlier table (82–85% on FastAPI, TypeScript repo, bug-tracing and CI workloads) and the "62%" figure have no script, data, or source in this repository. They are removed.
+- **Dollar savings:** not measured. They depend on your model prices, which the calculator takes as inputs.
+- **Estimates only:** token counts use a character heuristic, not a real tokenizer.
 
 ## 🚀 Quick Start
 > 🌐 **Live Web Studio:** Try ContextPrism instantly without installation at **[https://1997agarwal.github.io/ContextPrism](https://1997agarwal.github.io/ContextPrism)**
@@ -140,15 +138,18 @@ npm run dev
 ```
 Open **`http://localhost:5174`** to launch the interactive Token FinOps Studio.
 
-### 2. Run via Headless CLI
+### 2. Run the benchmark
+```bash
+npm run bench
+```
+
+### 3. Headless CLI (status: demo output)
 ```bash
 # Compress TypeScript or Python repositories for coding agents
 npx contextprism pack --target ./src
-npx contextprism pack --target ./services/backend # Compresses Python .py services
-
-# Analyze model routing recommendation for a prompt
 npx contextprism route "classify customer feedback sentiment"
 ```
+The `pack` and `route` commands currently print fixed demo text. They do not read your files yet, and `npx contextprism` is not published.
 
 ---
 
@@ -169,18 +170,20 @@ ContextPrism/
 │   └── core/
 │       ├── astCompressor.ts  # AST pruner (Rule 3)
 │       ├── modelRouter.ts    # Dynamic model router (Rule 1)
-│       ├── semanticCache.ts  # Zero-cost cache (Rule 2)
-│       └── budgetGuard.ts    # Circuit breaker & spend ceilings
+│       ├── semanticCache.ts  # Zero-cost exact-match cache (Rule 2)
+│       └── budgetGuard.ts    # Advisory token ceiling check (not enforced)
 └── src/                      # 2026 Clean Light Web Studio
     ├── App.tsx               # FinOps dashboard & workspace
     ├── components/
     │   ├── CompressorStudio.tsx # Multi-language AST compressor (TS & Python)
     │   ├── FinOpsCalculator.tsx # Executive Token FinOps ROI Calculator
     │   ├── RouterPlayground.tsx # Model routing tier tester
-    │   ├── CacheInspector.tsx   # Cache hit telemetry
+    │   ├── CacheInspector.tsx   # Exact-match cache telemetry (sample entries)
     │   └── FinOpsSummary.tsx    # Live ROI & dollar savings meter
     └── data/
-        └── mockFinOps.ts     # Pre-configured benchmark datasets & presets
+        └── mockFinOps.ts     # Sample data: savings figures, presets, sample files
+├── scripts/
+│   └── bench-compression.mjs # `npm run bench` (bundled samples only)
 ```
 
 ---
