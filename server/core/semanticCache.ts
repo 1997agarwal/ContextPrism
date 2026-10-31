@@ -1,6 +1,9 @@
 /**
- * Zero-Cost Semantic Cache (Rule 2)
- * Caches identical or near-duplicate queries to return instant answers for $0 cost.
+ * Zero-Cost Exact-Match Cache (Rule 2)
+ * Returns a stored answer when a prompt matches a previous one after lowercasing and
+ * removing punctuation and extra whitespace. It is not semantic: there are no embeddings
+ * or similarity scores, so paraphrased prompts miss the cache.
+ * The two seeded entries are sample data.
  */
 
 export interface CacheEntry {
@@ -17,7 +20,7 @@ class CacheManager {
   private cache: Map<string, CacheEntry> = new Map();
 
   constructor() {
-    // Seed initial high-frequency enterprise queries
+    // Sample seed entries (not measured traffic)
     this.set(
       'explain project architecture',
       'The project uses a 3-tier structure: React 18 frontend, Node.js REST API with SQLite persistence, and multi-agent pipeline.',

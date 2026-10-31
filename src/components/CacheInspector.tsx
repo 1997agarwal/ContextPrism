@@ -67,10 +67,13 @@ export const CacheInspector: React.FC = () => {
             <span className="text-xs text-slate-500 font-medium">100 Users, 1 API Call</span>
           </div>
           <h2 className="text-base font-bold text-slate-900">
-            Zero-Cost Semantic Caching Gateway
+            Zero-Cost Exact-Match Caching Gateway
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
             If 100 users ask the same question, call the API once. Store the answer. Return it 99 times for $0.
+          </p>
+          <p className="text-[11px] text-amber-700 font-medium mt-1">
+            Sample entries: hit counts and dollar figures are seed data, not measured. Matching is exact after normalization, not semantic.
           </p>
         </div>
 

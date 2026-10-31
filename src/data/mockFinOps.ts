@@ -49,6 +49,7 @@ export class StripePaymentService {
 }
 `.trim();
 
+// Sample data for the savings telemetry. These are not measured values.
 export const initialSummary = {
   totalTokensSaved: '14,250,000',
   totalDollarSavings: '$2,137.50',

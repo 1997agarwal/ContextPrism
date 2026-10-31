@@ -28,7 +28,10 @@ app.post('/api/compress', (req: any, res: any) => {
   }
 
   const result = compressCode(source, language);
-  res.json(result);
+  // Advisory only: reports whether the packed context exceeds the per-query ceiling.
+  // It never rejects the request.
+  const budget = checkBudgetGuard(result.compressedTokens);
+  res.json({ ...result, budget: { advisory: true, ...budget } });
 });
 
 app.post('/api/route', (req: any, res: any) => {
@@ -66,7 +69,12 @@ app.get('/api/finops/summary', (req: any, res: any) => {
   const totalCacheHits = cacheEntries.reduce((acc, c) => acc + c.hitCount, 0);
   const totalCacheSavings = cacheEntries.reduce((acc, c) => acc + c.dollarsSavedTotal, 0);
 
+  // Only the cache fields come from this process. The other figures are sample data.
   res.json({
+    isSampleData: true,
+    cacheEntries: cacheEntries.length,
+    cacheHits: totalCacheHits,
+    cacheDollarsSaved: totalCacheSavings,
     totalTokensSaved: 14_250_000,
     totalDollarSavings: 2_137.50 + totalCacheSavings,
     averageTokenReductionPercent: 82.4,
