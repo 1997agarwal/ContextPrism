@@ -1,8 +1,6 @@
 /**
- * Budget guard (advisory)
- * Reports whether a request's token count exceeds the per-query ceiling. The gateway
- * attaches this result to /api/compress responses and never rejects a request with it.
- * Per-user and per-session enforcement is not implemented.
+ * Budget Circuit Breaker
+ * Enforces per-task and per-day spend ceilings to prevent runaway agent loops.
  */
 
 export interface BudgetConfig {

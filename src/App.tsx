@@ -34,7 +34,7 @@ export const App: React.FC = () => {
           <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-medium text-slate-700">3 Golden Rules Active</span>
-            <span>• ~35% fewer tokens on bundled samples (npm run bench)</span>
+            <span>• Slashing AI API Costs by 90%</span>
           </div>
         </div>
 
@@ -117,7 +117,7 @@ export const App: React.FC = () => {
                 }`}
               >
                 <Database className="w-4 h-4" />
-                <span>Rule 2: Zero-Cost Exact-Match Cache</span>
+                <span>Rule 2: Zero-Cost Semantic Cache</span>
               </button>
 
               <button

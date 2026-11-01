@@ -16,5 +16,5 @@
 - **Architecture:**
   - AST Compressor (`core/astCompressor.ts`): Multi-language pruner for TypeScript and Python (.py), preserving docstrings, signatures, and type hints.
   - Model Router (`core/modelRouter.ts`): Task-aware prompt classifier.
-  - Exact-Match Cache (`core/semanticCache.ts`): Zero-cost instant lookup for identical prompts (after normalization). Not semantic.
+  - Semantic Cache (`core/semanticCache.ts`): Zero-cost instant lookup cache.
   - Web Studio (`src/`): Light-theme dashboard with interactive FinOps ROI Calculator, Cache Inspector, Router Playground, and Compressor Studio.

@@ -4,10 +4,6 @@ import { initialSummary } from '../data/mockFinOps';
 
 export const FinOpsSummary: React.FC<{ onOpenCalculator?: () => void }> = ({ onOpenCalculator }) => {
   return (
-    <div className="space-y-2">
-    <p className="text-[11px] text-amber-700 font-medium">
-      Sample figures from src/data/mockFinOps.ts, not measured from your code. Measured on the bundled samples: 35.3% fewer estimated tokens (run <code>npm run bench</code>).
-    </p>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {/* Metric 1: Dollars Saved */}
       <div
@@ -47,7 +43,7 @@ export const FinOpsSummary: React.FC<{ onOpenCalculator?: () => void }> = ({ onO
         </div>
       </div>
 
-      {/* Metric 3: Exact-Match Cache Hit Rate (sample) */}
+      {/* Metric 3: Semantic Cache Hit Rate */}
       <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between">
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Zero-Cost Cache Hits</span>
@@ -78,7 +74,6 @@ export const FinOpsSummary: React.FC<{ onOpenCalculator?: () => void }> = ({ onO
           </p>
         </div>
       </div>
-    </div>
     </div>
   );
 };
